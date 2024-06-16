@@ -1,0 +1,70 @@
+int main() {
+    int numShapes;
+
+    // the user to enter the number of shapes
+    printf("Enter the number of shapes: ");
+    scanf("%d", &numShapes);
+
+    // Dynamically allocate memory to store the shapes
+    union Shape* shapes = (union Shape*)malloc(numShapes * sizeof(union Shape));
+    if (shapes == NULL) {
+        printf("Memory allocation failed\n");
+        return 1;
+    }
+
+    // Read details for each shape
+    for (int i = 0; i < numShapes; i++) {
+        int shapeType;
+        printf("Enter type of shape (0 for circle, 1 for square, 2 for rectangle) for shape %d: ", i + 1);
+        scanf("%d", &shapeType);
+        switch (shapeType) {
+            case CIRCLE:
+                printf("Enter radius of circle: ");
+                scanf("%lf", &shapes[i].circle.radius);
+                break;
+            case SQUARE:
+                printf("Enter side length of square: ");
+                scanf("%lf", &shapes[i].square.sideLength);
+                break;
+            case RECTANGLE:
+                printf("Enter length and width of rectangle: ");
+                scanf("%lf %lf", &shapes[i].rectangle.length, &shapes[i].rectangle.width);
+                break;
+            default:
+                printf("Invalid shape type\n");
+                free(shapes);
+                return 1;
+        }
+    }
+    // Display the area of each shape
+    displayAreas(shapes, numShapes);
+
+    // Find and print the largest area among the shapes
+    double largestArea = findLargestArea(shapes, numShapes);
+    printf("\nLargest area among the shapes: %.2f\n", largestArea);
+
+    // Free dynamically allocated memory
+    free(shapes);
+
+    return 0;
+}
+int main() {
+    Stack s;
+    initialize(&s);
+
+    // Demonstrating the usage of the stack
+    push(&s, 10);
+    push(&s, 20);
+    push(&s, 30);
+    push(&s, 40);
+
+    printf("Top element: %d\n", peek(&s));
+
+    printf("Popped element: %d\n", pop(&s));
+
+    printf("Top element after pop: %d\n", peek(&s));
+
+    return 0;
+}
+
+
